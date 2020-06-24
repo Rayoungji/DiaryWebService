@@ -25,16 +25,31 @@
 
 <body>
 <%
-    Boolean SIGNUPSUCESS = (Boolean) request.getAttribute("SIGNUPSUCESS");
-    if(SIGNUPSUCESS){
+    String name = (String) request.getSession().getAttribute("name");
+    String email = (String) request.getSession().getAttribute("email");
+    System.out.println("indexPage - name:"+name+" email:"+email);
+%>
+<%
+        Boolean SIGNUPSUCESS = (Boolean) request.getAttribute("SIGNUPSUCESS");
+        if(SIGNUPSUCESS){
 %>
 <script>
     alert('회원가입이 정상적으로 이루어졌습니다!!');
 </script>
 <%
-    }
+        }
 %>
 
+<%
+    Boolean LOGINSUCESS = (Boolean) request.getAttribute("LOGINSUCESS");
+    if(LOGINSUCESS){
+%>
+<script>
+    alert('로그인이 정상적으로 이루어졌습니다!!');
+</script>
+<%
+        }
+%>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
@@ -51,15 +66,28 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
+                <%
+                    if(!LOGINSUCESS){
+                %>
                 <li class="nav-item">
                     <a class="nav-link" href="/signin">SignIn</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/signup">SignUp</a>
                 </li>
+                <% }
+                %>
+                <%
+                    if(LOGINSUCESS){
+                    %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/mypage">MyPage</a>
                 </li>
+               <% }
+                    %>
             </ul>
         </div>
     </div>

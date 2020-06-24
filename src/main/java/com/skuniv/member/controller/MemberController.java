@@ -21,12 +21,12 @@ public class MemberController {
     private GetMemberService getMemberService;
 
     @GetMapping(value = "/mypage")
-    private String myPage(){
+    private String myPage() {
         return "myPage";
     }
 
     @GetMapping(value = "/signup")
-    public String signUp(){
+    public String signUp() {
         return "signUp";
     }
 
@@ -42,12 +42,15 @@ public class MemberController {
         }
         Member successMem = signUpDto.toEntity(signUpDto);
         model.addAttribute("SIGNUPSUCESS", true);
+        if (model.getAttribute("LOGINSUCESS") == null) {
+            model.addAttribute("LOGINSUCESS", false);
+        }
         signUpService.signUpMember(successMem);
         return "index";
     }
 
     @GetMapping("/signin")
-    public String signIn(HttpSession session, Model model) {
+    public String signIn(HttpSession session) {
         session.invalidate();
         return "signIn";
     }
@@ -62,8 +65,11 @@ public class MemberController {
             return "signInpwFail";
         }
         session.setAttribute("name", mem.getName());
-        session.setAttribute("email",mem.getEmail());
-        model.addAttribute("LOGIN_OK",true);
-        return "signInSuccess";
+        session.setAttribute("email", mem.getEmail());
+        if (model.getAttribute("SIGNUPSUCESS") == null) {
+            model.addAttribute("SIGNUPSUCESS", false);
+        }
+        model.addAttribute("LOGINSUCESS", true);
+        return "index";
     }
 }
