@@ -72,4 +72,13 @@ public class MemberController {
         model.addAttribute("LOGINSUCESS", true);
         return "index";
     }
+
+    @GetMapping("/logout")
+    public String logout(Model model, HttpSession session) {
+        session.removeAttribute("name");
+        session.removeAttribute("email");
+        model.addAttribute("SINGUPSUCESS",false);
+        model.addAttribute("SIGNUPSUCESS",false);
+        return "logoutSuccess";
+    }
 }
