@@ -3,6 +3,7 @@ package com.skuniv.config;
 import com.skuniv.member.dao.MemberDao;
 import com.skuniv.member.service.GetMemberService;
 import com.skuniv.member.service.SignUpService;
+import com.skuniv.member.service.UpdateService;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,4 +33,7 @@ public class JavaConfig {
 
     @Bean
     public GetMemberService getMemberService(){return new GetMemberService();}
+
+    @Bean
+    public UpdateService updateService() {return new UpdateService();}
 }

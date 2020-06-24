@@ -25,9 +25,8 @@
 
 <body>
 <%
-    String name = (String) request.getSession().getAttribute("name");
     String email = (String) request.getSession().getAttribute("email");
-    System.out.println("indexPage - name:"+name+" email:"+email);
+    System.out.println("indexPage's email>>>> "+email);
 %>
 <%
         Boolean SIGNUPSUCESS = (Boolean) request.getAttribute("SIGNUPSUCESS");
@@ -35,17 +34,6 @@
 %>
 <script>
     alert('회원가입이 정상적으로 이루어졌습니다!!');
-</script>
-<%
-        }
-%>
-
-<%
-    Boolean LOGINSUCESS = (Boolean) request.getAttribute("LOGINSUCESS");
-    if(LOGINSUCESS){
-%>
-<script>
-    alert('로그인이 정상적으로 이루어졌습니다!!');
 </script>
 <%
         }
@@ -67,7 +55,7 @@
                     <a class="nav-link" href="/about">About</a>
                 </li>
                 <%
-                    if(!LOGINSUCESS){
+                    if(email == null){
                 %>
                 <li class="nav-item">
                     <a class="nav-link" href="/signin">SignIn</a>
@@ -78,7 +66,7 @@
                 <% }
                 %>
                 <%
-                    if(LOGINSUCESS){
+                    if(email != null){
                     %>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>

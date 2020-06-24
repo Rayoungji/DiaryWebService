@@ -22,6 +22,12 @@ public class MemberDao {
                 member.getName(), member.getPhone(), member.getAddress(), member.getEmail(), member.getPassword(), member.getCreated_at());
     }
 
+    public void updateMember(Member update, String email) {
+        System.out.println("updateMemberDao is running");
+        jdbcTemplate.update("update member set name=?, phone=?, address=?, password=? where email=?",
+                update.getName(), update.getPhone(), update.getAddress() , update.getPassword(), email);
+    }
+
     public Member selectMemberByEmail(String email) {
         System.out.println("selectMemberByEmailDao is running");
         List<Member> results = jdbcTemplate.query("select * from member where email =?",

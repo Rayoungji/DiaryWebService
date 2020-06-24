@@ -2,9 +2,11 @@ package com.skuniv.member.controller;
 
 import com.skuniv.member.dto.SignInDto;
 import com.skuniv.member.dto.SignUpDto;
+import com.skuniv.member.dto.UpdateDto;
 import com.skuniv.member.entity.Member;
 import com.skuniv.member.service.GetMemberService;
 import com.skuniv.member.service.SignUpService;
+import com.skuniv.member.service.UpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +21,15 @@ public class MemberController {
     private SignUpService signUpService;
     @Autowired
     private GetMemberService getMemberService;
+    @Autowired
+    private UpdateService updateService;
 
     @GetMapping(value = "/mypage")
-    private String myPage() {
+    private String myPage(Model model, HttpSession session) {
+        System.out.println("is mypage running?");
+        String email = (String) session.getAttribute("email");
+        Member member = getMemberService.getMemberByEmail(email);
+        model.addAttribute("member",member);
         return "myPage";
     }
 
@@ -42,9 +50,6 @@ public class MemberController {
         }
         Member successMem = signUpDto.toEntity(signUpDto);
         model.addAttribute("SIGNUPSUCESS", true);
-        if (model.getAttribute("LOGINSUCESS") == null) {
-            model.addAttribute("LOGINSUCESS", false);
-        }
         signUpService.signUpMember(successMem);
         return "index";
     }
@@ -64,21 +69,28 @@ public class MemberController {
         if (!mem.getPassword().equals(signInDto.getPassword())) {
             return "signInpwFail";
         }
-        session.setAttribute("name", mem.getName());
         session.setAttribute("email", mem.getEmail());
         if (model.getAttribute("SIGNUPSUCESS") == null) {
             model.addAttribute("SIGNUPSUCESS", false);
         }
-        model.addAttribute("LOGINSUCESS", true);
-        return "index";
+        return "loginSuccess";
     }
 
     @GetMapping("/logout")
     public String logout(Model model, HttpSession session) {
+        session.removeAttribute("email");
+        model.addAttribute("SINGUPSUCESS",false);
+        return "logoutSuccess";
+    }
+
+    @PostMapping(value = "/update.do")
+    public String update(Model model, UpdateDto updateDto, HttpSession session){
+        String email = (String)session.getAttribute("email");
+        Member update = updateDto.toEntity(updateDto);
+        updateService.updateMember(update,email);
         session.removeAttribute("name");
         session.removeAttribute("email");
         model.addAttribute("SINGUPSUCESS",false);
-        model.addAttribute("SIGNUPSUCESS",false);
-        return "logoutSuccess";
+        return "updateSuccess";
     }
 }
