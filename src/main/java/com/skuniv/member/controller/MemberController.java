@@ -10,10 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Controller
 public class MemberController {
@@ -22,19 +20,17 @@ public class MemberController {
     @Autowired
     private GetMemberService getMemberService;
 
-    @GetMapping(value = "/list")
-    public String list(Model model) {
-        List<Member> memberList = getMemberService.getAllMember();
-        model.addAttribute("members",memberList);
-        return "list";
+    @GetMapping(value = "/mypage")
+    private String myPage(){
+        return "myPage";
     }
 
-    @GetMapping(value = "/signUp")
+    @GetMapping(value = "/signup")
     public String signUp(){
         return "signUp";
     }
 
-    @PostMapping("/signUp.do")
+    @PostMapping("/signup.do")
     public String signUpComplete(Model model, SignUpDto signUpDto) {
         signUpDto.setCreated_at(LocalDateTime.now());
         Member mem = getMemberService.getMemberByEmail(signUpDto.getEmail());
@@ -47,16 +43,16 @@ public class MemberController {
         Member successMem = signUpDto.toEntity(signUpDto);
         model.addAttribute("SIGNUPSUCESS", true);
         signUpService.signUpMember(successMem);
-        return "signIn";
+        return "index";
     }
 
-    @GetMapping("/signIn")
+    @GetMapping("/signin")
     public String signIn(HttpSession session, Model model) {
         session.invalidate();
         return "signIn";
     }
 
-    @PostMapping("/signIn.do")
+    @PostMapping("/signin.do")
     public String signInComplete(SignInDto signInDto, HttpSession session, Model model) {
         Member mem = getMemberService.getMemberByEmail(signInDto.getEmail());
         if (mem == null) {
