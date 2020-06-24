@@ -1,5 +1,8 @@
 package com.skuniv.config;
 
+import com.skuniv.member.dao.MemberDao;
+import com.skuniv.member.service.GetMemberService;
+import com.skuniv.member.service.SignUpService;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,4 +23,13 @@ public class JavaConfig {
         ds.setTimeBetweenEvictionRunsMillis(10 * 1000);
         return ds;
     }
+
+    @Bean
+    public MemberDao memberDao(){return new MemberDao(dataSource());}
+
+    @Bean
+    public SignUpService signUpService(){return new SignUpService();}
+
+    @Bean
+    public GetMemberService getMemberService(){return new GetMemberService();}
 }
