@@ -29,7 +29,6 @@
 <%
     System.out.println("is diaryModify jsp running??");
     Diary diary = (Diary) request.getAttribute("diary");
-    System.out.println(diary.getContext());
 %>
 <script>
     function goBack() {
@@ -50,7 +49,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-8 col-md-10 mx-auto">
-                                <form method="post" action="/modifydiary.do" >
+                                <form method="post" action="/diarymodify.do" >
+                                    <input type="text" name="date" value="<%=diary.getDate()%>" style="display: none">
                                     <div class="col-lg-8 col-md-10 mx-auto">
                                         <div class="form-group">
                                             <label>Title</label>

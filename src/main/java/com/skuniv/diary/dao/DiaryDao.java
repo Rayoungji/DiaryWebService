@@ -46,6 +46,17 @@ public class DiaryDao {
         return null;
     }
 
+    public void updateDiary(Diary update) {
+        System.out.println("updateDairyDao is running");
+        jdbcTemplate.update("update diary set title=?, context=?, modify_at=? where email=? and date=?",
+                update.getTitle(), update.getContext(), update.getModify_at(), update.getEmail(), update.getDate());
+    }
+
+    public void deleteDiary(Diary deleteDiary) {
+        jdbcTemplate.update("delete from diary where email=? and date=?",
+                deleteDiary.getEmail(), deleteDiary.getDate());
+    }
+
     public Diary selectById(int id){
         List<Diary> results = jdbcTemplate.query("select * from diary where id =?",
                 new RowMapper<Diary>() {

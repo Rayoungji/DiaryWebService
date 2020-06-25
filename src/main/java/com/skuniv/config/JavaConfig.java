@@ -1,13 +1,16 @@
 package com.skuniv.config;
 
 import com.skuniv.diary.dao.DiaryDao;
+import com.skuniv.diary.service.GetDiaryByIdService;
 import com.skuniv.diary.service.GetDiaryListService;
 import com.skuniv.diary.service.InsertDiaryService;
+import com.skuniv.diary.service.ModifyDiaryService;
 import com.skuniv.member.dao.MemberDao;
 import com.skuniv.member.service.DeleteService;
 import com.skuniv.member.service.GetMemberService;
 import com.skuniv.member.service.SignUpService;
 import com.skuniv.member.service.UpdateService;
+import lombok.Builder;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,4 +55,10 @@ public class JavaConfig {
 
     @Bean
     public GetDiaryListService getDiaryListService() {return new GetDiaryListService();}
+
+    @Bean
+    public ModifyDiaryService modifyDiaryService() {return new ModifyDiaryService();}
+
+    @Bean
+    public GetDiaryByIdService getDiaryByIdService() {return new GetDiaryByIdService();}
 }

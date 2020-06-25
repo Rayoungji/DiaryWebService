@@ -24,10 +24,17 @@
 </head>
 
 <body>
-
+<script>
+    function goBack() {
+        location.href="/mypage";
+    }
+</script>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-calendar"></i>
+        </div>
         <a class="navbar-brand" href="index.html">My Diary</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
@@ -95,6 +102,7 @@
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Insert</button>
+                <button type="button" class="btn btn-primary" onclick="goBack()">Cancel</button>
             </form>
         </div>
     </div>

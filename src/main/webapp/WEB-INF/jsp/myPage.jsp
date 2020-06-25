@@ -37,7 +37,7 @@
 %>
 <%
     String email = (String) request.getSession().getAttribute("email");
-    System.out.println("indexPage's email>>>> "+email);
+    System.out.println("myPage's email>>>> "+email);
     Member member = (Member) request.getAttribute("member");
     String name = member.getName();
     List<Diary> diaryList = (List<Diary>) request.getAttribute("diaryList");
@@ -76,6 +76,9 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-calendar"></i>
+        </div>
         <a class="navbar-brand" href="index.html">My Diary</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
@@ -306,7 +309,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <p class="copyright text-muted">Copyright &copy; Your Website 2020</p>
+                <p class="copyright text-muted">Copyright &copy; My Diary (Youngji) 2020</p>
             </div>
         </div>
     </div>

@@ -24,6 +24,11 @@
 </head>
 
 <body>
+<script>
+    function goBack() {
+        location.href="/";
+    }
+</script>
 <header class="masthead" style="background-color: #F7BE81">
     <div class="overlay"></div>
     <div class="container">
@@ -54,6 +59,8 @@
                                 <input type="password" class="form-control" name="password" placeholder="Password">
                             </div>
                             <button type="submit" class="btn btn-secondary">SignUp</button>
+                            <button type="button" class="btn btn-secondary" onclick="goBack()">Cancel</button>
+
                         </form>
                     </div>
                 </div>
@@ -62,6 +69,16 @@
     </div>
     </div>
 </header>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <p class="copyright text-muted">Copyright &copy; My Diary (Youngji) 2020</p>
+            </div>
+        </div>
+    </div>
+</footer>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

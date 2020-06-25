@@ -39,6 +39,7 @@ public class MemberController {
     @Autowired
     private InsertDiaryService insertDiaryService;
 
+    //myPages 이동 - attribute: 회원의 일기목록 & 회원정보
     @GetMapping(value = "/mypage")
     private String myPage(Model model, HttpSession session) {
         System.out.println("is mypage running?");
@@ -64,6 +65,7 @@ public class MemberController {
         return "myPage";
     }
 
+    //회원정보 화면 - userInfo로 화면 이동
     @GetMapping(value = "/userinfo")
     private String userInfo(Model model, HttpSession session){
         String email = (String) session.getAttribute("email");
@@ -72,6 +74,7 @@ public class MemberController {
         return "userInfo";
     }
 
+    //회원정보화면에서 수정버튼 클릭시 수정화면 - userInfoModify로 화면 이동
     @GetMapping(value = "/userinfomodify")
     private String userModify(Model model, HttpSession session){
         String email = (String) session.getAttribute("email");
@@ -80,11 +83,24 @@ public class MemberController {
         return "userInfoModify";
     }
 
+    //userInfoModify 화면에서 폼 실행 부분
+    @PostMapping(value = "/update.do")
+    public String update(Model model, UpdateDto updateDto, HttpSession session){
+        String email = (String)session.getAttribute("email");
+        Member update = updateDto.toEntity(updateDto);
+        updateService.updateMember(update,email);
+        session.removeAttribute("email");
+        model.addAttribute("SINGUPSUCESS",false);
+        return "updateSuccess";
+    }
+
+    //회원가입 화면 - signUp으로 화면 이동
     @GetMapping(value = "/signup")
     public String signUp() {
         return "signUp";
     }
 
+    //signUp 화면에서 폼 실행 부분
     @PostMapping("/signup.do")
     public String signUpComplete(Model model, SignUpDto signUpDto) {
         signUpDto.setCreated_at(LocalDateTime.now());
@@ -101,12 +117,14 @@ public class MemberController {
         return "index";
     }
 
+    //로그인 화면 - signIn으로 화면 이동
     @GetMapping("/signin")
     public String signIn(HttpSession session) {
         session.invalidate();
         return "signIn";
     }
 
+    //SignIn 화면에서 폼 실행 부분
     @PostMapping("/signin.do")
     public String signInComplete(SignInDto signInDto, HttpSession session, Model model) {
         Member mem = getMemberService.getMemberByEmail(signInDto.getEmail());
@@ -123,6 +141,7 @@ public class MemberController {
         return "loginSuccess";
     }
 
+    //로그아웃 버튼 실행 부분
     @GetMapping("/logout")
     public String logout(Model model, HttpSession session) {
         session.removeAttribute("email");
@@ -130,21 +149,13 @@ public class MemberController {
         return "logoutSuccess";
     }
 
-    @PostMapping(value = "/update.do")
-    public String update(Model model, UpdateDto updateDto, HttpSession session){
-        String email = (String)session.getAttribute("email");
-        Member update = updateDto.toEntity(updateDto);
-        updateService.updateMember(update,email);
-        session.removeAttribute("email");
-        model.addAttribute("SINGUPSUCESS",false);
-        return "updateSuccess";
-    }
-
+    //회원탈퇴 버튼 실행 부분
     @PostMapping(value = "/deleteaccount")
     public String deleteAccount(){
         return "deleteAccount";
     }
 
+    //회원탈퇴 시 비밀번호 확인
     @PostMapping(value = "/pwcheck")
     public String pwCheck(HttpSession session, @RequestParam(value = "password", required = false)String password){
         String email = (String)session.getAttribute("email");
