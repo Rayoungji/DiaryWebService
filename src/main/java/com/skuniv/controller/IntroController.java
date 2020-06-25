@@ -21,13 +21,8 @@ public class IntroController {
 
     //홈페이지 소개 - about 화면이동
     @GetMapping(value = "/about")
-    public String about() {
+    public String about(HttpSession session) {
         return "about";
-    }
-
-    @GetMapping(value = "/testing")
-    public String test(){
-        return "diaryList";
     }
 
 }

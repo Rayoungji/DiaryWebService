@@ -50,13 +50,16 @@
                                 Date:  <% out.println(diary.getDate()); %>
                             </div>
                             <br>
+                            <br>
                             <div class="form-group" name="title" style="position: absolute">
                                 Title:   <% out.println(diary.getTitle()); %>
                             </div>
                             <br>
+                            <br>
                             <div class="form-group" name="context" style="position: absolute">
                                 Context:  <% out.println(diary.getContext()); %>
                             </div>
+                            <br>
                             <br>
                             <div class="form-group" style="position: absolute">
                                 <input type="text" name="modify_at" value="<%=diary.getModify_at()%>" style="display: none">

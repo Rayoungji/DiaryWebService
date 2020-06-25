@@ -23,11 +23,17 @@
 </head>
 
 <body>
-
+<%
+    String email = (String) request.getSession().getAttribute("email");
+    System.out.println("aboutPage's email>>>> "+email);
+%>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-calendar"></i>
+        </div>
+        <a class="navbar-brand" href="index.html">My Diary</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
@@ -40,12 +46,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
+                <% if(email != null){%>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Sample Post</a>
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link" href="/mypage">MyPage</a>
                 </li>
+                <%}%>
+                <% if(email == null){%>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signin">SignIn</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">SignUp</a>
+                </li>
+                <%}%>
             </ul>
         </div>
     </div>
@@ -59,7 +75,7 @@
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
                     <h1>About Me</h1>
-                    <span class="subheading">This is what I do.</span>
+                    <span class="subheading">About our Service.</span>
                 </div>
             </div>
         </div>
@@ -70,9 +86,12 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <p>옛다 한글 ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
+            <p>일기를 기록하는 다이어리 서비스입니다. 오늘 당신의 하루는 어땠나요? My Diary 서비스를 이용하여 당신의 하루를 기록하세요!!</p>
+            <p>본 서비스는 회원가입 후 사용이 가능하십니다. 회원 정보는 userInfo 페이지에서 수정 및 탈퇴가 가능하며, 가입 후
+                마이페이지에서 여러 기능을 사용하실 수 있습니다. 원하시는 기능을 선택하여 서비스를 사용하여보세요.</p>
+            <p>캘린더에서는 날짜별 일기목록을 확인 할 수 있습니다. 캘린더에 있는 일기를 클릭 혹은 리스트 보기에 들어가서 원하시는 일기를 선택하여
+                일기를 열람하실 수 있습니다. 또한 날짜 구간 별로 일기 검색이 가능합니다. 제목 검색과 키워드 검색을 통해 해당하는 일기를 열람하실 수 있습니다.</p>
+
         </div>
     </div>
 </div>
