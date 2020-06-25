@@ -125,20 +125,29 @@
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#">
+                            <a href="/diarylist">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-search fa-stack-1x fa-inverse"></i>
-                    <a class="subheading" style="font-size: medium">구간 검색</a>
+                    <a class="subheading" style="font-size: medium">리스트 보기</a>
                 </span>
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#">
+                            <a href="/keywordsearch">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-key fa-stack-1x fa-inverse"></i>
                     <a class="subheading" style="font-size: medium">키워드 검색</a>
+                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="/durationsearch">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-calendar fa-stack-1x fa-inverse"></i>
+                    <a class="subheading" style="font-size: medium">구간검색</a>
                 </span>
                             </a>
                         </li>

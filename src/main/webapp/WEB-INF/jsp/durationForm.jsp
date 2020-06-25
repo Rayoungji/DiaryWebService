@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<%@page import="com.skuniv.member.entity.Member"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <head>
 
     <meta charset="utf-8">
@@ -27,7 +26,7 @@
 <body>
 <script>
     function goBack() {
-        location.href="/";
+        location.href="/mypage";
     }
 </script>
 <header class="masthead" style="background-color: #F7BE81">
@@ -36,32 +35,19 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h1>Upate Info</h1>
+                    <h1>Duration</h1>
                     <div class="col-lg-8 col-md-10 mx-auto">
-                        <form method="post" action="/update.do" class="user">
-                            <%
-                                System.out.println("is mypage jsp running??");
-                                Member member = (Member)request.getAttribute("member");
-                            %>
+                        <form method="post" action="/durationsearch.do" class="user">
                             <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control" name="name" value="<%=member.getName()%>">
+                                <label>StartDate</label>
+                                <input type="date" max="9999-12-31" class="form-control" name="startDate" placeholder="2020-05-03">
                             </div>
                             <div class="form-group">
-                                <label>Phone</label>
-                                <input type="text" class="form-control" name="phone" value="<%=member.getPhone()%>">
+                                <label>EndDate</label>
+                                <input type="date" max="9999-12-31" class="form-control" name="endDate" placeholder="2020-05-03">
                             </div>
-                            <div class="form-group">
-                                <label>Address</label>
-                                <input type="text" class="form-control" name="address" value="<%=member.getAddress()%>">
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-control" name="password" value="<%=member.getPassword()%>">
-                            </div>
-                            <button type="submit" class="btn btn-secondary">Update</button>
-                            <a onclick="goBack()" class="btn btn-secondary">GoBack</a>
-
+                            <button type="submit" class="btn btn-secondary">Search</button>
+                            <button type="button" class="btn btn-secondary" onclick="goBack()">Cancel</button>
                         </form>
                     </div>
                 </div>
@@ -70,6 +56,16 @@
     </div>
     </div>
 </header>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <p class="copyright text-muted">Copyright &copy; My Diary (Youngji) 2020</p>
+            </div>
+        </div>
+    </div>
+</footer>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -1,5 +1,7 @@
 package com.skuniv.diary.dao;
 
+import com.skuniv.diary.dto.DurationDto;
+import com.skuniv.diary.dto.DurationReturnDto;
 import com.skuniv.diary.entity.Diary;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -8,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class DiaryDao {
@@ -91,5 +94,28 @@ public class DiaryDao {
                 }, email);
 
         return results.isEmpty()? null:results;
+    }
+
+    public List<Diary> selectAllByDateDuration(DurationReturnDto diarySearchDate, String email) {
+        System.out.println("selectAllByDateDurationDao is running");
+        LocalDate startDate=diarySearchDate.getStartDate();
+        LocalDate endDate=diarySearchDate.getEndDate();
+
+        List<Diary> results = jdbcTemplate.query("select * from diary WHERE date(date) >=?  and date(date) <=? and email=? ORDER BY date ASC",
+                new RowMapper<Diary>() {
+                    @Override
+                    public Diary mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        Diary getDiary = new Diary(rs.getString("email"),
+                                rs.getDate("date").toLocalDate(),
+                                rs.getString("title"),
+                                rs.getString("context"),
+                                rs.getDate("modify_at"));
+                        getDiary.setId(rs.getInt("id"));
+                        return getDiary;
+                    }
+                }, startDate, endDate, email);
+
+        return results.isEmpty()? null:results;
+
     }
 }

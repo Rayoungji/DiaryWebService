@@ -1,11 +1,11 @@
 package com.skuniv.diary.controller;
 
 import com.skuniv.diary.dao.DiaryDao;
-import com.skuniv.diary.dto.DairyInsertDto;
-import com.skuniv.diary.dto.DiaryDeleteDto;
-import com.skuniv.diary.dto.DiaryModifyDto;
+import com.skuniv.diary.dto.*;
 import com.skuniv.diary.entity.Diary;
 import com.skuniv.diary.service.*;
+import com.skuniv.member.entity.Member;
+import com.skuniv.member.service.GetMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 
 @Controller
 public class DiaryController {
+    @Autowired
+    private GetDiaryListService getDiaryListService;
     @Autowired
     private InsertDiaryService insertDiaryService;
     @Autowired
@@ -28,6 +31,8 @@ public class DiaryController {
     private GetDiaryByIdService getDiaryByIdService;
     @Autowired
     private DeleteDiarySerivce deleteDiarySerivce;
+    @Autowired
+    private SearchDiaryService searchDiaryService;
 
     //일기 작성 화면 - insertDiary로 화면 이동
     @GetMapping(value = "/insertdiary")
@@ -107,4 +112,58 @@ public class DiaryController {
         deleteDiarySerivce.deleteDiary(deleteDiary);
         return "deleteDiarySuccess";
     }
+
+    @GetMapping(value = "/diarylist")
+    public String diaryList(Model model, HttpSession session){
+        System.out.println("diaryList Controller running");
+        String email = (String) session.getAttribute("email");
+        List<Diary> diaryList = getDiaryListService.getDiaryListByEmail(email);
+        if(diaryList != null){
+            model.addAttribute("diaryList",diaryList);}
+        if(diaryList == null){
+            Date startDate = new Date();
+            insertDiaryService.insertDiary(
+                    Diary.builder()
+                            .email(email)
+                            .date(LocalDate.now())
+                            .title("가입일")
+                            .context("서비스 시작일")
+                            .modify_at(startDate).build()
+            );
+            List<Diary> diaryList2 = getDiaryListService.getDiaryListByEmail(email);
+            model.addAttribute("diaryList",diaryList2);
+        }
+        return "diaryList";
+    }
+
+    @GetMapping(value = "/durationsearch")
+    public String durationForm(){
+        return "durationForm";
+    }
+
+    @PostMapping(value = "/durationsearch.do")
+    public String durationSearch(DurationDto durationDto, HttpSession session,Model model){
+        String startStr[]=durationDto.getStartDate().split("-");
+        int Y = Integer.parseInt(startStr[0]);
+        int m = Integer.parseInt(startStr[1]);
+        int d = Integer.parseInt(startStr[2]);
+        LocalDate startLocatDate = LocalDate.of(Y,m,d);
+
+        String endStar[]=durationDto.getEndDate().split("-");
+        int Y2 = Integer.parseInt(startStr[0]);
+        int m2 = Integer.parseInt(startStr[1]);
+        int d2 = Integer.parseInt(startStr[2]);
+        LocalDate endLocalDate = LocalDate.of(Y2,m2,d2);
+        String email = (String)session.getAttribute("email");
+        DurationReturnDto durationReturnDto=DurationReturnDto.builder()
+                .startDate(startLocatDate)
+                .endDate(endLocalDate).build();
+        List<Diary> diaryLists = searchDiaryService.durationSearchDiary(durationReturnDto,email);
+        if(diaryLists == null){
+            System.out.println("is nulllllllllll");
+        }
+        model.addAttribute("diaryList",diaryLists);
+        return "diaryList";
+    }
+
 }

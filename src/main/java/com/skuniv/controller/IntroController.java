@@ -25,4 +25,9 @@ public class IntroController {
         return "about";
     }
 
+    @GetMapping(value = "/testing")
+    public String test(){
+        return "diaryList";
+    }
+
 }

@@ -61,4 +61,7 @@ public class JavaConfig {
 
     @Bean
     public DeleteDiarySerivce deleteDiarySerivce() {return new DeleteDiarySerivce();}
+
+    @Bean
+    public SearchDiaryService searchDiaryService() {return new SearchDiaryService();}
 }
