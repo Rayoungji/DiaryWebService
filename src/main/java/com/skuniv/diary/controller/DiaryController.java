@@ -148,21 +148,41 @@ public class DiaryController {
         int m = Integer.parseInt(startStr[1]);
         int d = Integer.parseInt(startStr[2]);
         LocalDate startLocatDate = LocalDate.of(Y,m,d);
-
         String endStar[]=durationDto.getEndDate().split("-");
-        int Y2 = Integer.parseInt(startStr[0]);
-        int m2 = Integer.parseInt(startStr[1]);
-        int d2 = Integer.parseInt(startStr[2]);
+        int Y2 = Integer.parseInt(endStar[0]);
+        int m2 = Integer.parseInt(endStar[1]);
+        int d2 = Integer.parseInt(endStar[2]);
         LocalDate endLocalDate = LocalDate.of(Y2,m2,d2);
         String email = (String)session.getAttribute("email");
         DurationReturnDto durationReturnDto=DurationReturnDto.builder()
                 .startDate(startLocatDate)
                 .endDate(endLocalDate).build();
         List<Diary> diaryLists = searchDiaryService.durationSearchDiary(durationReturnDto,email);
-        if(diaryLists == null){
-            System.out.println("is nulllllllllll");
-        }
         model.addAttribute("diaryList",diaryLists);
+        return "diaryList";
+    }
+
+    @GetMapping(value = "/keywordsearch")
+    public String keywordForm(){
+        return "keywordForm";
+    }
+
+    @PostMapping(value = "/keywordsearch.do")
+    public String keywordSearch(HttpSession session,  @RequestParam(value = "keyword", required = false)String keyword, Model model){
+        String email = (String)session.getAttribute("email");
+        List<Diary> diaryList = searchDiaryService.keywordSearchDiary(keyword,email);
+        model.addAttribute("diaryList",diaryList);
+        return "diaryList";
+    }
+
+    @GetMapping(value = "/titlesearch")
+    public String titleForm(){return "titleForm";}
+
+    @PostMapping(value = "/titlesearch.do")
+    public String titleSearch(HttpSession session, @RequestParam(value = "title",required = false)String title, Model model){
+        String email=(String)session.getAttribute("email");
+        List<Diary> diaryList = searchDiaryService.titleSearchDiary(title,email);
+        model.addAttribute("diaryList",diaryList);
         return "diaryList";
     }
 

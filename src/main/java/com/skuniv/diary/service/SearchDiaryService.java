@@ -16,4 +16,12 @@ public class SearchDiaryService {
     public List<Diary> durationSearchDiary(DurationReturnDto durationDto, String email){
         return diaryDao.selectAllByDateDuration(durationDto,email);
     }
+
+    public List<Diary> keywordSearchDiary(String keyword, String email){
+        return diaryDao.selectAllByKeywordAndEmail(keyword,email);
+    }
+
+    public List<Diary> titleSearchDiary(String title, String email){
+        return diaryDao.selectAllByTitleAndEmail(title,email);
+    }
 }

@@ -35,14 +35,14 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h1>Delete Accout</h1>
+                    <h1>Keyword Search</h1>
                     <div class="col-lg-8 col-md-10 mx-auto">
-                        <form method="post" action="/pwcheck" class="user">
+                        <form method="post" action="/keywordsearch.do" class="user">
                             <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-control" name="password" placeholder="Password">
+                                <label>KeyWord</label>
+                                <input type="text" class="form-control" name="keyword" placeholder="Keyword">
                             </div>
-                            <button type="submit" class="btn btn-secondary">Delete</button>
+                            <button type="submit" class="btn btn-secondary">Search</button>
                             <button type="button" class="btn btn-secondary" onclick="goBack()">Cancel</button>
                         </form>
                     </div>

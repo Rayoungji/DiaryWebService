@@ -100,7 +100,6 @@ public class DiaryDao {
         System.out.println("selectAllByDateDurationDao is running");
         LocalDate startDate=diarySearchDate.getStartDate();
         LocalDate endDate=diarySearchDate.getEndDate();
-
         List<Diary> results = jdbcTemplate.query("select * from diary WHERE date(date) >=?  and date(date) <=? and email=? ORDER BY date ASC",
                 new RowMapper<Diary>() {
                     @Override
@@ -117,5 +116,41 @@ public class DiaryDao {
 
         return results.isEmpty()? null:results;
 
+    }
+
+    public List<Diary> selectAllByKeywordAndEmail(String keyword, String email)  {
+        List<Diary> results = jdbcTemplate.query("select * from diary WHERE email=? and context like ? ORDER BY date ASC",
+                new RowMapper<Diary>() {
+                    @Override
+                    public Diary mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        Diary getDiary = new Diary(rs.getString("email"),
+                                rs.getDate("date").toLocalDate(),
+                                rs.getString("title"),
+                                rs.getString("context"),
+                                rs.getDate("modify_at"));
+                        getDiary.setId(rs.getInt("id"));
+                        return getDiary;
+                    }
+                }, email, "%"+keyword+"%");
+
+        return results.isEmpty()? null:results;
+    }
+
+    public List<Diary> selectAllByTitleAndEmail(String title, String email){
+        List<Diary> results = jdbcTemplate.query("select * from diary WHERE email=? and title like ? ORDER BY date ASC",
+                new RowMapper<Diary>() {
+                    @Override
+                    public Diary mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        Diary getDiary = new Diary(rs.getString("email"),
+                                rs.getDate("date").toLocalDate(),
+                                rs.getString("title"),
+                                rs.getString("context"),
+                                rs.getDate("modify_at"));
+                        getDiary.setId(rs.getInt("id"));
+                        return getDiary;
+                    }
+                }, email,  "%" + title + "%");
+
+        return results.isEmpty()? null:results;
     }
 }
