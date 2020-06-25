@@ -11,7 +11,7 @@
     <title>My Dairy Service - start Diary Service</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../resource/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../resource/intro/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
     <link href="../../resource/intro/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,12 +19,12 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <link href="../../resource/css/clean-blog.min.css" rel="stylesheet">
+    <link href="../../resource/intro/css/clean-blog.min.css" rel="stylesheet">
 
 </head>
 
 <body>
-<header class="masthead">
+<header class="masthead" style="background-color: #F7BE81">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -51,7 +51,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="text" class="form-control" name="password" placeholder="Password">
+                                <input type="password" class="form-control" name="password" placeholder="Password">
                             </div>
                             <button type="submit" class="btn btn-secondary">SignUp</button>
                         </form>

@@ -28,6 +28,10 @@ public class MemberDao {
                 update.getName(), update.getPhone(), update.getAddress() , update.getPassword(), email);
     }
 
+    public void deleteMember(String email){
+        System.out.println("deleteMemberDao is running");
+        jdbcTemplate.update("delete from member where email=?", email);
+    }
     public Member selectMemberByEmail(String email) {
         System.out.println("selectMemberByEmailDao is running");
         List<Member> results = jdbcTemplate.query("select * from member where email =?",

@@ -1,6 +1,10 @@
 package com.skuniv.config;
 
+import com.skuniv.diary.dao.DiaryDao;
+import com.skuniv.diary.service.GetDiaryListService;
+import com.skuniv.diary.service.InsertDiaryService;
 import com.skuniv.member.dao.MemberDao;
+import com.skuniv.member.service.DeleteService;
 import com.skuniv.member.service.GetMemberService;
 import com.skuniv.member.service.SignUpService;
 import com.skuniv.member.service.UpdateService;
@@ -36,4 +40,16 @@ public class JavaConfig {
 
     @Bean
     public UpdateService updateService() {return new UpdateService();}
+
+    @Bean
+    public DeleteService deleteService() {return new DeleteService();}
+
+    @Bean
+    public DiaryDao diaryDao(){return new DiaryDao(dataSource());}
+
+    @Bean
+    public InsertDiaryService insertDiaryService(){return new InsertDiaryService();}
+
+    @Bean
+    public GetDiaryListService getDiaryListService() {return new GetDiaryListService();}
 }

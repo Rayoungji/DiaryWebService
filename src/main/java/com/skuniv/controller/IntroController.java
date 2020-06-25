@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class IntroController {
+
     @RequestMapping(value = "/")
     public String intro(Model model, HttpSession session) {
         if (model.getAttribute("SIGNUPSUCESS") == null) {
@@ -22,8 +23,4 @@ public class IntroController {
         return "about";
     }
 
-    @GetMapping(value = "/testing")
-    public String test(){
-        return "testing";
-    }
 }
