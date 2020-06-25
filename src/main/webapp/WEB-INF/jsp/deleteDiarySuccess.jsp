@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <script>
-        alert('일기 작성 완료!!');
+        alert('일기 삭제 완료!!');
         location.href='/mypage';
     </script>
 </head>

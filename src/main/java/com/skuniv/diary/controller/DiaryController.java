@@ -2,12 +2,10 @@ package com.skuniv.diary.controller;
 
 import com.skuniv.diary.dao.DiaryDao;
 import com.skuniv.diary.dto.DairyInsertDto;
+import com.skuniv.diary.dto.DiaryDeleteDto;
 import com.skuniv.diary.dto.DiaryModifyDto;
 import com.skuniv.diary.entity.Diary;
-import com.skuniv.diary.service.GetDiaryByIdService;
-import com.skuniv.diary.service.GetDiaryListService;
-import com.skuniv.diary.service.InsertDiaryService;
-import com.skuniv.diary.service.ModifyDiaryService;
+import com.skuniv.diary.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +21,13 @@ import java.util.Date;
 @Controller
 public class DiaryController {
     @Autowired
-    private GetDiaryListService getDiaryListService;
-    @Autowired
     private InsertDiaryService insertDiaryService;
     @Autowired
     private ModifyDiaryService modifyDiaryService;
     @Autowired
     private GetDiaryByIdService getDiaryByIdService;
+    @Autowired
+    private DeleteDiarySerivce deleteDiarySerivce;
 
     //일기 작성 화면 - insertDiary로 화면 이동
     @GetMapping(value = "/insertdiary")
@@ -92,7 +90,6 @@ public class DiaryController {
         int d = Integer.parseInt(str[2]);
         LocalDate localDate = LocalDate.of(Y,m,d);
         Date modifyDate = new Date();
-        System.out.println("controller - modify_at>>>>>"+modifyDate);
         modifyDiaryService.modifyDairy(
                 Diary.builder()
                 .email(email)
@@ -102,5 +99,12 @@ public class DiaryController {
                 .modify_at(modifyDate).build()
         );
         return "modifyDiarySuccess";
+    }
+
+    @PostMapping(value = "/deletediary")
+    public String deleteDiary(DiaryDeleteDto diaryDeleteDto){
+        Diary deleteDiary = getDiaryByIdService.getDiaryById(Integer.parseInt(diaryDeleteDto.getId()));
+        deleteDiarySerivce.deleteDiary(deleteDiary);
+        return "deleteDiarySuccess";
     }
 }

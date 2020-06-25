@@ -1,10 +1,7 @@
 package com.skuniv.config;
 
 import com.skuniv.diary.dao.DiaryDao;
-import com.skuniv.diary.service.GetDiaryByIdService;
-import com.skuniv.diary.service.GetDiaryListService;
-import com.skuniv.diary.service.InsertDiaryService;
-import com.skuniv.diary.service.ModifyDiaryService;
+import com.skuniv.diary.service.*;
 import com.skuniv.member.dao.MemberDao;
 import com.skuniv.member.service.DeleteService;
 import com.skuniv.member.service.GetMemberService;
@@ -61,4 +58,7 @@ public class JavaConfig {
 
     @Bean
     public GetDiaryByIdService getDiaryByIdService() {return new GetDiaryByIdService();}
+
+    @Bean
+    public DeleteDiarySerivce deleteDiarySerivce() {return new DeleteDiarySerivce();}
 }

@@ -53,6 +53,7 @@ public class DiaryDao {
     }
 
     public void deleteDiary(Diary deleteDiary) {
+        System.out.println("deleteDiaryDao is running");
         jdbcTemplate.update("delete from diary where email=? and date=?",
                 deleteDiary.getEmail(), deleteDiary.getDate());
     }

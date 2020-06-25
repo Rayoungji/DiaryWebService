@@ -46,19 +46,21 @@
                                 System.out.println("is diaryDetail jsp running??");
                                 Diary diary = (Diary) request.getAttribute("diary");
                             %>
-                            <div class="form-group" style="position: absolute">
+                            <div class="form-group" name="date" style="position: absolute">
                                 Date:  <% out.println(diary.getDate()); %>
                             </div>
                             <br>
-                            <div class="form-group" style="position: absolute">
+                            <div class="form-group" name="title" style="position: absolute">
                                 Title:   <% out.println(diary.getTitle()); %>
                             </div>
                             <br>
-                            <div class="form-group" style="position: absolute">
+                            <div class="form-group" name="context" style="position: absolute">
                                 Context:  <% out.println(diary.getContext()); %>
                             </div>
                             <br>
                             <div class="form-group" style="position: absolute">
+                                <input type="text" name="modify_at" value="<%=diary.getModify_at()%>" style="display: none">
+                                <input type="text" name="id" value="<%=diary.getId()%>" style="display: none">
                                 Last Modify_at:  <% out.println(diary.getModify_at()); %>
                             </div>
                             <br>
