@@ -6,6 +6,9 @@
 * Java
 * Spring
 * JDBC
+* MySQL
+* Jsp
+* BootStrap
 
 ## 기능
 * 회원 관련 기능
